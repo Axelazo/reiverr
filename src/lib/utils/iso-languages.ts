@@ -1,5 +1,14 @@
 // https://github.com/meikidd/iso-639-1/blob/master/src/data.js
-export const ISO_LANGUAGES = {
+
+// Define a type for ISO_LANGUAGES with an index signature
+type IsoLanguages = {
+	[key: string]: {
+		name: string;
+		nativeName: string;
+	};
+};
+
+export const ISO_LANGUAGES: IsoLanguages = {
 	en: {
 		name: 'English',
 		nativeName: 'English'
@@ -519,6 +528,10 @@ export const ISO_LANGUAGES = {
 	pt: {
 		name: 'Portuguese',
 		nativeName: 'Português'
+	},
+	'pt-BR': {
+		name: 'Portuguese (Brazil)',
+		nativeName: 'Português (Brasil)'
 	},
 	qu: {
 		name: 'Quechua',
