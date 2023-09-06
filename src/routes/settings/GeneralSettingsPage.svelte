@@ -20,8 +20,12 @@
 	</h1>
 	<h2>{$_('settings.general.userInterface.language')}</h2>
 	<Select bind:value={values.language}>
-		{#each Object.entries(ISO_LANGUAGES).filter( ([c, l]) => Object.keys($dictionary).includes(c) ) as [code, lang]}
-			<option value={code}>{`${lang?.name} - ${lang?.nativeName}`}</option>
+		{#each Object.entries(ISO_LANGUAGES) as [isoLangKey, isoLangValue]}
+			{#each Object.entries($dictionary) as [dictionaryKey]}
+				{#if dictionaryKey.toLowerCase() == isoLangKey.toLowerCase()}
+					<option value={isoLangKey}>{`${isoLangValue.name} - ${isoLangValue.nativeName}`}</option>
+				{/if}
+			{/each}
 		{/each}
 	</Select>
 	<h2>
