@@ -55,7 +55,7 @@
 			!(await getSonarrHealth(values.sonarr.baseUrl, values.sonarr.apiKey))
 		) {
 			createErrorNotification(
-				'Invalid Configuration',
+				`${$_('settings.misc.errors.invalidConfiguration')}`,
 				'Could not connect to Sonarr. Check Sonarr credentials.'
 			);
 			return;
@@ -97,23 +97,40 @@
 	function checkForPartialConfiguration(v: SettingsValues) {
 		let error = '';
 		if (sonarrConnected && !v.sonarr.rootFolderPath) {
-			error = 'Sonarr disabled: Root folder path is required';
+			error = `${$_('settings.misc.errors.missingRootFolder', {
+				values: { app: 'Sonarr' }
+			})}`;
 		} else if (sonarrConnected && !v.sonarr.qualityProfileId) {
-			error = 'Sonarr disabled: Quality profile is required';
+			error = `${$_('settings.misc.errors.missingQualityProfile', {
+				values: { app: 'Sonarr' }
+			})}`;
 		} else if (sonarrConnected && !v.sonarr.languageProfileId) {
-			error = 'Sonarr disabled: Language profile is required';
+			error = `${$_('settings.misc.errors.missingLanguageProfile', {
+				values: { app: 'Sonarr' }
+			})}`;
 		}
 
 		if (radarrConnected && !v.radarr.rootFolderPath) {
-			error = 'Radarr disabled: Root folder path is required';
+			error = `${$_('settings.misc.errors.missingRootFolder', {
+				values: { app: 'Radarr' }
+			})}`;
 		} else if (radarrConnected && !v.radarr.qualityProfileId) {
-			error = 'Radarr disabled: Quality profile is required';
+			error = `${$_('settings.misc.errors.missingQualityProfile', {
+				values: { app: 'Radarr' }
+			})}`;
 		}
 
 		if (jellyfinConnected && !v.jellyfin.userId) {
-			error = 'Jellyfin disabled: User is required';
+			error = `${$_('settings.misc.errors.missingUser', {
+				values: { app: 'Jellyfin' }
+			})}`;
 		}
-		if (error) createErrorNotification('Incomplete Configuration', error, 'warning');
+		if (error)
+			createErrorNotification(
+				`${$_('settings.misc.errors.incompleteConfiguration')}`,
+				error,
+				'warning'
+			);
 	}
 
 	async function updateSonarrHealth(reset = false): Promise<boolean> {
