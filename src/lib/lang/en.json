@@ -96,7 +96,16 @@
 		"misc": {
 			"saveChanges": "Save Changes",
 			"resetToDefaults": "Reset to Defaults ",
-			"changelog": "Changelog"
+			"changelog": "Changelog",
+			"errors": {
+				"invalidConfiguration": "Invalid Configuration",
+				"incompleteConfiguration": "Incomplete Configuration",
+				"connectionError": "Could not connect to {app}. Check {app} credentials.",
+				"missingRootFolder": "{app} disabled: Root folder path is required",
+				"missingQualityProfile": "{app} disabled: Quality profile is required",
+				"missingLanguageProfile": "{app} disabled: Language profile is required",
+				"missingUser": "{app} disabled: User is required"
+			}
 		}
 	}
 }

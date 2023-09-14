@@ -96,7 +96,16 @@
 		"misc": {
 			"saveChanges": "Guardar Cambios",
 			"resetToDefaults": "Restablecer Ajustes ",
-			"changelog": "Historial de Cambios"
+			"changelog": "Historial de Cambios",
+			"errors": {
+				"invalidConfiguration": "Configuración Invalida",
+				"incompleteConfiguration": "Configuración Incompleta",
+				"connectionError": "No se ha podido conectar a {app}. Verifica las credenciales de {app}.",
+				"missingRootFolder": "{app} deshabilitado: La ruta de la Carpeta Raíz es requerida",
+				"missingQualityProfile": "{app} deshabilitado: El Perfil de Calidad es requerido",
+				"missingLanguageProfile": "{app} deshabilitado: El Perfil de Lenguaje es requerido.",
+				"missingUser": "{app} deshabilitado: El Usuario es requerido"
+			}
 		}
 	}
 }
