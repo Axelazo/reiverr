@@ -29,6 +29,15 @@ export interface TmdbSeriesFull2 extends TmdbSeries2 {
 	images: operations['tv-series-images']['responses']['200']['content']['application/json'];
 }
 
+let apiLanguage = 'en-US';
+
+settings.subscribe((value) => {
+	if (value.language) {
+		apiLanguage = value.language;
+		console.log(apiLanguage);
+	}
+});
+
 const backdropCache = browser ? window?.caches?.open('backdrops') : undefined;
 const posterCache = browser ? window?.caches?.open('posters') : undefined;
 
@@ -69,10 +78,13 @@ export const getTmdbMovie = async (tmdbId: number) =>
 			},
 			query: {
 				append_to_response: 'videos,credits,external_ids,images',
-				...({ include_image_language: get(settings)?.language + ',en,null' } as any)
+				...({ include_image_language: get(settings)?.language + ',en,null' } as any),
+				language: apiLanguage
 			}
 		}
-	}).then((res) => res.data as TmdbMovieFull2 | undefined);
+	}).then((res) => {
+		return res.data as TmdbMovieFull2 | undefined;
+	});
 
 export const getTmdbSeriesFromTvdbId = async (tvdbId: string) =>
 	TmdbApiOpen.get('/3/find/{external_id}', {
@@ -81,7 +93,8 @@ export const getTmdbSeriesFromTvdbId = async (tvdbId: string) =>
 				external_id: tvdbId
 			},
 			query: {
-				external_source: 'tvdb_id'
+				external_source: 'tvdb_id',
+				language: apiLanguage
 			}
 		},
 		headers: {
@@ -104,7 +117,8 @@ export const getTmdbSeries = async (tmdbId: number): Promise<TmdbSeriesFull2 | u
 			},
 			query: {
 				append_to_response: 'videos,aggregate_credits,external_ids,images',
-				...({ include_image_language: get(settings)?.language + ',en,null' } as any)
+				...({ include_image_language: get(settings)?.language + ',en,null' } as any),
+				language: apiLanguage
 			}
 		},
 		headers: {
@@ -196,7 +210,7 @@ export const getTmdbPopularMovies = () =>
 	TmdbApiOpen.get('/3/movie/popular', {
 		params: {
 			query: {
-				language: get(settings)?.language,
+				language: apiLanguage,
 				region: get(settings)?.discover.region
 			}
 		}
@@ -206,7 +220,7 @@ export const getTmdbPopularSeries = () =>
 	TmdbApiOpen.get('/3/tv/popular', {
 		params: {
 			query: {
-				language: get(settings)?.language
+				language: apiLanguage
 			}
 		}
 	}).then((res) => res.data?.results || []);
